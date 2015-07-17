@@ -31,6 +31,11 @@ public class MainActivity extends Activity {
     }
 
     /**
+     * Toast to show the message of the activity to open.
+     */
+    private Toast toast;
+
+    /**
      * I adds a click for a button to display the content it will open.
      * @param buttonId id of the button to add the event.
      * @param buttonTextId Text id of the title.
@@ -40,35 +45,16 @@ public class MainActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (toast!=null) {
+                    toast.cancel();
+                }
 
                 String messageFormat = getString(R.string.portfolio_button_message_format);
                 String buttonMessage = String.format(messageFormat, getString(buttonTextId));
 
-                Toast.makeText(MainActivity.this, buttonMessage, Toast.LENGTH_SHORT).show();
+                toast = Toast.makeText(MainActivity.this, buttonMessage, Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
